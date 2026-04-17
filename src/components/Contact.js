@@ -124,10 +124,11 @@ function Contact() {
           <div className="contact-info">
             <div style={{ display: 'flex', justifyContent: 'center', marginBottom: '2rem' }}>
               <ReflectiveCard 
-                metalness={0.8}
-                roughness={0.5}
-                blurStrength={10}
-                image="https://github.com/balaram753.png"
+                metalness={0.5}
+                roughness={0.2}
+                blurStrength={3}
+                displacementStrength={2}
+                image="/profile.jpg"
               />
             </div>
 

@@ -114,7 +114,7 @@ const ReflectiveCard = ({
       </svg>
 
       {image ? (
-        <img src={image} alt="Profile Reflection" className="reflective-video" />
+        <img src={image} alt="Profile Reflection" className="reflective-video" style={{ transform: 'scale(1)' }} />
       ) : (
         <video ref={videoRef} autoPlay playsInline muted className="reflective-video" />
       )}
