@@ -1,5 +1,7 @@
 .about {
-  background: linear-gradient(180deg, rgba(255, 107, 53, 0.08), rgba(247, 147, 30, 0.05));
+  background: transparent;
+  position: relative;
+  z-index: 10;
 }
 
 .section-header {
@@ -9,7 +11,7 @@
 
 .section-header h2 {
   margin-bottom: 0.75rem;
-  background: linear-gradient(135deg, #ff6b35, #f7931e);
+  background: linear-gradient(135deg, #fff, var(--text-muted));
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
@@ -17,161 +19,164 @@
 
 .section-subtitle {
   font-size: 1.05rem;
-  color: #94a3b8;
+  color: var(--text-dimmed);
   max-width: 500px;
   margin: 0 auto;
 }
 
 .cyber-iot-banner {
-  background: linear-gradient(135deg, rgba(255, 107, 53, 0.15), rgba(247, 147, 30, 0.1));
-  border: 2px solid rgba(255, 107, 53, 0.4);
-  border-radius: 12px;
+  background: rgba(30, 41, 59, 0.6);
+  border: 1px solid rgba(8, 145, 178, 0.3);
+  border-radius: var(--radius-lg);
   padding: 2.5rem;
   margin-bottom: 3rem;
   backdrop-filter: blur(10px);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3), inset 0 0 20px rgba(8, 145, 178, 0.05);
+  position: relative;
+  overflow: hidden;
+}
+
+/* Subtle corner accents */
+.cyber-iot-banner::before,
+.cyber-iot-banner::after {
+  content: '';
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  border: 2px solid var(--secondary-color);
+  opacity: 0.5;
+}
+
+.cyber-iot-banner::before {
+  top: 0;
+  left: 0;
+  border-right: none;
+  border-bottom: none;
+  border-top-left-radius: var(--radius-lg);
+}
+
+.cyber-iot-banner::after {
+  bottom: 0;
+  right: 0;
+  border-left: none;
+  border-top: none;
+  border-bottom-right-radius: var(--radius-lg);
 }
 
 .cyber-iot-banner h3 {
   font-size: 1.5rem;
-  color: #ff6b35;
+  color: var(--secondary-color);
   margin-bottom: 1rem;
   font-weight: 700;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
 }
 
 .cyber-iot-banner p {
   font-size: 1.05rem;
   line-height: 1.8;
-  color: #e2e8f0;
+  color: var(--text-light);
   margin: 0;
 }
 
 .about-content {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: 1fr;
   gap: 2rem;
   align-items: start;
 }
 
 .about-highlights {
   display: grid;
+  grid-template-columns: repeat(3, 1fr);
   gap: 1.5rem;
 }
 
 .highlight {
-  background: linear-gradient(135deg, rgba(255, 107, 53, 0.08), rgba(76, 175, 80, 0.05));
-  border: 2px solid rgba(255, 107, 53, 0.2);
+  background: rgba(30, 41, 59, 0.5);
+  border: 1px solid rgba(255, 255, 255, 0.05);
   padding: 2rem;
-  border-radius: 12px;
+  border-radius: var(--radius-lg);
   transition: all 0.3s ease;
+  backdrop-filter: blur(10px);
 }
 
 .highlight:hover {
-  background: linear-gradient(135deg, rgba(255, 107, 53, 0.15), rgba(76, 175, 80, 0.1));
-  border-color: #ff6b35;
+  background: rgba(30, 41, 59, 0.8);
+  border-color: var(--secondary-color);
   transform: translateY(-4px);
-  box-shadow: 0 8px 16px rgba(255, 107, 53, 0.15);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.4), inset 0 0 15px rgba(247, 147, 30, 0.1);
 }
 
 .highlight-icon {
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 60px;
-  height: 60px;
-  background: rgba(255, 107, 53, 0.15);
-  border-radius: 10px;
-  color: #ff6b35;
+  width: 50px;
+  height: 50px;
+  background: rgba(8, 145, 178, 0.1);
+  border-radius: var(--radius-md);
+  color: var(--secondary-color);
   margin-bottom: 1rem;
   transition: all 0.3s ease;
+  border: 1px solid rgba(8, 145, 178, 0.2);
 }
 
 .highlight:hover .highlight-icon {
-  background: rgba(255, 107, 53, 0.25);
-  transform: scale(1.1);
+  background: rgba(247, 147, 30, 0.1);
+  color: var(--secondary-color);
+  border-color: rgba(247, 147, 30, 0.3);
+  transform: scale(1.05);
 }
 
 .highlight h3 {
-  font-size: 1.2rem;
+  font-size: 1.15rem;
   margin-bottom: 0.75rem;
-  color: #e2e8f0;
+  color: var(--text-light);
   font-weight: 600;
 }
 
 .highlight p {
   font-size: 0.95rem;
-  margin: 0;
-  color: #94a3b8;
+  margin: 0 0 0.5rem 0;
+  color: var(--text-muted);
 }
 
 /* ===========================
    Responsive
    =========================== */
 @media (max-width: 1024px) {
-  .about-content {
+  .about-highlights {
     grid-template-columns: repeat(2, 1fr);
-    gap: 2rem;
-  }
-
-  .cyber-iot-banner {
-    padding: 2rem;
-  }
-
-  .cyber-iot-banner h3 {
-    font-size: 1.3rem;
-  }
-
-  .cyber-iot-banner p {
-    font-size: 1rem;
-  }
-}
-
-@media (max-width: 768px) {
-  .about-content {
-    grid-template-columns: 1fr;
-  }
-}
-
-@media (max-width: 768px) {
-  .section-header {
-    margin-bottom: 2.5rem;
-  }
-
-  .about-content {
     gap: 1.5rem;
   }
+}
 
-  .about-text p {
-    font-size: 1rem;
-  }
-
+@media (max-width: 768px) {
   .about-highlights {
     grid-template-columns: 1fr;
   }
 
-  .highlight {
+  .cyber-iot-banner {
     padding: 1.5rem;
+  }
+
+  .cyber-iot-banner h3 {
+    font-size: 1.25rem;
+  }
+
+  .cyber-iot-banner p {
+    font-size: 0.95rem;
   }
 }
 
 @media (max-width: 480px) {
-  .section-header h2 {
-    font-size: 2rem;
-  }
-
-  .about-text p {
-    font-size: 0.95rem;
-    margin-bottom: 1rem;
-  }
-
   .highlight {
     padding: 1.25rem;
   }
 
   .highlight h3 {
     font-size: 1.1rem;
-  }
-
-  .highlight p {
-    font-size: 0.9rem;
   }
 }

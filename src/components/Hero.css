@@ -8,6 +8,97 @@
   background-color: var(--bg-dark);
 }
 
+/* ===========================
+   Hero Badge
+   =========================== */
+.hero-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: rgba(8, 145, 178, 0.12);
+  border: 1px solid rgba(8, 145, 178, 0.35);
+  border-radius: 999px;
+  padding: 0.35rem 1rem;
+  font-size: 0.8rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  color: var(--secondary-color);
+  margin-bottom: 1.25rem;
+  text-transform: uppercase;
+}
+
+.hero-badge-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--secondary-color);
+  box-shadow: 0 0 6px var(--secondary-color);
+  animation: pulse-dot 2s ease-in-out infinite;
+}
+
+@keyframes pulse-dot {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50%       { opacity: 0.5; transform: scale(1.4); }
+}
+
+/* ===========================
+   TrueFocus hero title
+   =========================== */
+.hero-truefocus-wrap {
+  margin-bottom: 0.75rem;
+}
+
+.hero-truefocus-wrap .focus-container {
+  justify-content: flex-start;
+  gap: 0.5em;
+}
+
+.hero-truefocus-wrap .focus-word {
+  background: linear-gradient(135deg, var(--primary-light), var(--secondary-color));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  font-size: 3.6rem;
+  font-weight: 900;
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+}
+
+/* ===========================
+   LogoLoop ticker strip
+   =========================== */
+.hero-logoloop-wrap {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  z-index: 2;
+  padding-bottom: 1.5rem;
+}
+
+.hero-logoloop-label {
+  text-align: center;
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: rgba(8, 145, 178, 0.55);
+  margin-bottom: 0.6rem;
+}
+
+.hero-logoloop-wrap .logoloop__node {
+  color: rgba(255, 255, 255, 0.4);
+  transition: color 0.25s ease;
+}
+
+.hero-logoloop-wrap .logoloop--scale-hover .logoloop__item:hover .logoloop__node {
+  color: var(--secondary-color);
+}
+
+
+/* ===========================
+   Premium Background Layers
+   =========================== */
 .hero-background {
   position: absolute;
   top: 0;
@@ -15,68 +106,96 @@
   right: 0;
   bottom: 0;
   z-index: 0;
+  background: radial-gradient(circle at center, var(--bg-card) 0%, var(--bg-dark) 100%);
+}
+
+.noise-overlay {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+  opacity: 0.05;
+  mix-blend-mode: overlay;
+}
+
+.scanlines {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  pointer-events: none;
+  background: linear-gradient(
+    to bottom,
+    rgba(255, 255, 255, 0),
+    rgba(255, 255, 255, 0) 50%,
+    rgba(0, 0, 0, 0.2) 50%,
+    rgba(0, 0, 0, 0.2)
+  );
+  background-size: 100% 4px;
+  animation: scanlines-move 10s linear infinite;
+  opacity: 0.15;
+}
+
+@keyframes scanlines-move {
+  0% { background-position: 0 0; }
+  100% { background-position: 0 40px; }
 }
 
 .grid {
   position: absolute;
-  width: 100%;
-  height: 100%;
-  background-image:
-    linear-gradient(
-      rgba(8, 145, 178, 0.08) 1px,
-      transparent 1px
-    ),
-    linear-gradient(
-      90deg,
-      rgba(8, 145, 178, 0.08) 1px,
-      transparent 1px
-    );
-  background-size: 50px 50px;
-  background-position: 0 0, 0 0;
-  animation: gridMove 20s linear infinite;
+  inset: -50% -50% 0 -50%;
+  background-image: 
+    linear-gradient(rgba(8, 145, 178, 0.08) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(8, 145, 178, 0.08) 1px, transparent 1px);
+  background-size: 40px 40px;
+  z-index: 1;
+  mask-image: linear-gradient(to bottom, transparent 0%, black 50%, transparent 100%);
+  -webkit-mask-image: linear-gradient(to bottom, transparent 0%, black 50%, transparent 100%);
+  transform: perspective(400px) rotateX(65deg) translateY(-100px);
+  transform-origin: center center;
+  animation: grid-scroll 20s linear infinite;
+  pointer-events: none;
 }
 
-@keyframes gridMove {
-  0% {
-    background-position: 0 0, 0 0;
-  }
-  100% {
-    background-position: 50px 50px, 50px 50px;
-  }
+@keyframes grid-scroll {
+  from { transform: perspective(400px) rotateX(65deg) translateY(-50px); }
+  to { transform: perspective(400px) rotateX(65deg) translateY(0); }
 }
 
 .glow {
   position: absolute;
   border-radius: 50%;
   filter: blur(80px);
-  opacity: 0.3;
+  mix-blend-mode: screen;
+  pointer-events: none;
 }
 
 .glow-1 {
-  width: 400px;
-  height: 400px;
-  background: rgba(30, 64, 175, 0.4);
-  top: 10%;
-  right: -200px;
-  animation: float 6s ease-in-out infinite;
+  width: 50vw;
+  height: 50vw;
+  max-width: 600px;
+  max-height: 600px;
+  background: radial-gradient(circle, rgba(247, 147, 30, 0.12) 0%, transparent 70%);
+  top: -10%;
+  right: -10%;
+  animation: float-glow 8s ease-in-out infinite alternate;
 }
 
 .glow-2 {
-  width: 300px;
-  height: 300px;
-  background: rgba(8, 145, 178, 0.3);
-  bottom: 10%;
-  left: -150px;
-  animation: float 8s ease-in-out infinite reverse;
+  width: 60vw;
+  height: 60vw;
+  max-width: 700px;
+  max-height: 700px;
+  background: radial-gradient(circle, rgba(8, 145, 178, 0.12) 0%, transparent 70%);
+  bottom: -20%;
+  left: -10%;
+  animation: float-glow 10s ease-in-out infinite alternate-reverse;
 }
 
-@keyframes float {
-  0%, 100% {
-    transform: translateY(0);
-  }
-  50% {
-    transform: translateY(-50px);
-  }
+@keyframes float-glow {
+  0% { transform: translate(0, 0) scale(1); }
+  50% { transform: translate(-3vw, 2vw) scale(1.05); }
+  100% { transform: translate(2vw, -2vw) scale(0.95); }
 }
 
 .hero-container {

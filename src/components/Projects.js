@@ -1,6 +1,7 @@
 import React from 'react';
 import { FiGithub } from 'react-icons/fi';
 import './Projects.css';
+import ElectricBorder from './ElectricBorder';
 
 function Projects() {
   const projects = [
@@ -72,37 +73,46 @@ function Projects() {
 
         <div className="projects-grid">
           {projects.map((project) => (
-            <div
+            <ElectricBorder
               key={project.id}
-              className={`project-card ${project.featured ? 'featured' : ''}`}
+              color="#ff6b35"
+              speed={0.6}
+              chaos={project.featured ? 0.15 : 0.10}
+              borderRadius={12}
+              style={{ display: 'flex', flexDirection: 'column' }}
             >
-              <div className="project-header">
-                <h3>{project.title}</h3>
-                <div className="project-badges">
-                  <span className={`status-badge status-${project.status.toLowerCase().replace(' ', '-')}`}>
-                    {project.status}
-                  </span>
-                  {project.featured && <span className="featured-badge">Featured</span>}
+              <div
+                className={`project-card ${project.featured ? 'featured' : ''}`}
+                style={{ border: 'none', flex: 1 }}
+              >
+                <div className="project-header">
+                  <h3>{project.title}</h3>
+                  <div className="project-badges">
+                    <span className={`status-badge status-${project.status.toLowerCase().replace(' ', '-')}`}>
+                      {project.status}
+                    </span>
+                    {project.featured && <span className="featured-badge">Featured</span>}
+                  </div>
+                </div>
+
+                <p className="project-description">{project.description}</p>
+
+                <div className="project-tags">
+                  {project.tags.map((tag, index) => (
+                    <span key={index} className="project-tag">
+                      {tag}
+                    </span>
+                  ))}
+                </div>
+
+                <div className="project-links">
+                  <a href={project.github} target="_blank" rel="noopener noreferrer" className="project-link">
+                    <FiGithub size={18} />
+                    View Code
+                  </a>
                 </div>
               </div>
-
-              <p className="project-description">{project.description}</p>
-
-              <div className="project-tags">
-                {project.tags.map((tag, index) => (
-                  <span key={index} className="project-tag">
-                    {tag}
-                  </span>
-                ))}
-              </div>
-
-              <div className="project-links">
-                <a href={project.github} target="_blank" rel="noopener noreferrer" className="project-link">
-                  <FiGithub size={18} />
-                  View Code
-                </a>
-              </div>
-            </div>
+            </ElectricBorder>
           ))}
         </div>
       </div>

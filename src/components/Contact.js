@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { FiMail, FiGithub, FiLinkedin, FiTwitter, FiSend } from 'react-icons/fi';
+import ReflectiveCard from './ReflectiveCard';
 import './Contact.css';
 
 function Contact() {
@@ -121,6 +122,15 @@ function Contact() {
           </div>
 
           <div className="contact-info">
+            <div style={{ display: 'flex', justifyContent: 'center', marginBottom: '2rem' }}>
+              <ReflectiveCard 
+                metalness={0.8}
+                roughness={0.5}
+                blurStrength={10}
+                image="https://github.com/balaram753.png"
+              />
+            </div>
+
             <h3>Contact Information</h3>
             <p>
               Feel free to reach out with any questions about IoT security, 

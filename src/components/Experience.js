@@ -1,5 +1,6 @@
 import React from 'react';
 import { FiCheckCircle } from 'react-icons/fi';
+import ScrollStack, { ScrollStackItem } from './ScrollStack';
 import './Experience.css';
 
 function Experience() {
@@ -38,12 +39,18 @@ function Experience() {
           <p className="section-subtitle">Journey through security and IoT</p>
         </div>
 
-        <div className="experience-timeline">
-          {experiences.map((exp, index) => (
-            <div key={index} className="experience-item">
-              <div className="experience-marker"></div>
-              
-              <div className="experience-content">
+        <div className="experience-stack-wrapper">
+          <ScrollStack
+            useWindowScroll={true}
+            itemDistance={50}
+            itemScale={0.03}
+            stackPosition="5%"
+            scaleEndPosition="5%"
+            baseScale={0.9}
+            blurAmount={3}
+          >
+            {experiences.map((exp, index) => (
+              <ScrollStackItem key={index} itemClassName="experience-card glowing-border">
                 <div className="experience-header">
                   <h3>{exp.title}</h3>
                   <span className={`status-badge ${exp.status}`}>
@@ -61,9 +68,9 @@ function Experience() {
                     </div>
                   ))}
                 </div>
-              </div>
-            </div>
-          ))}
+              </ScrollStackItem>
+            ))}
+          </ScrollStack>
         </div>
       </div>
     </section>

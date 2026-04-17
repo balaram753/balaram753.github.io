@@ -1,0 +1,15 @@
+.scroll-float {
+  overflow: hidden;
+  margin: 0;
+  padding: 0;
+}
+
+.scroll-float-text {
+  display: inline-block;
+  text-align: center;
+  line-height: 1.1;
+}
+
+.char {
+  display: inline-block;
+}
