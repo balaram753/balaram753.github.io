@@ -24,22 +24,26 @@
   pointer-events: none;
 }
 
+
 .experience-card {
-  background: rgba(30, 41, 59, 0.8) !important;
-  backdrop-filter: blur(15px);
-  -webkit-backdrop-filter: blur(15px);
+  background: rgba(10, 13, 19, 0.92) !important;
   padding: 2.5rem !important;
   display: flex;
   flex-direction: column;
   justify-content: center;
-  border: 1px solid rgba(8, 145, 178, 0.3) !important;
-  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5), inset 0 0 20px rgba(8, 145, 178, 0.05) !important;
-  transition: border-color var(--transition-normal), box-shadow var(--transition-normal) !important;
+  border: 1px solid var(--primary-color) !important;
+  box-shadow: none !important;
+  outline: none;
+  font-family: 'Monaco', 'Menlo', 'Courier New', monospace;
+  transition: transform 0.18s cubic-bezier(0.23,1,0.32,1), border-color 0.18s !important;
 }
-
+.experience-card:focus {
+  outline: 2px solid var(--accent-color) !important;
+  outline-offset: 2px;
+}
 .experience-card:hover {
   border-color: var(--secondary-color) !important;
-  box-shadow: 0 25px 50px rgba(0, 0, 0, 0.6), inset 0 0 30px rgba(247, 147, 30, 0.05), 0 0 20px rgba(247, 147, 30, 0.2) !important;
+  transform: translateY(-4px);
 }
 
 .experience-header {

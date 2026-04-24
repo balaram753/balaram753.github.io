@@ -1,8 +1,10 @@
+
 .footer {
   background: var(--bg-darker);
-  border-top: 1px solid var(--border-color);
-  padding: 3rem 0 2rem;
+  border-top: 1px solid var(--primary-color);
+  padding: 2.5rem 0 1.5rem;
   margin-top: 0;
+  font-family: 'Monaco', 'Menlo', 'Courier New', monospace;
 }
 
 .footer-content {
@@ -15,13 +17,15 @@
 }
 
 .footer-section h4 {
-  font-size: 1rem;
-  font-weight: 600;
+  font-size: 1.1rem;
+  font-weight: 700;
   margin-bottom: 1rem;
-  background: linear-gradient(135deg, var(--primary-light), var(--secondary-color));
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
+  color: var(--primary-color);
+  background: none;
+  -webkit-background-clip: unset;
+  -webkit-text-fill-color: unset;
+  background-clip: unset;
+  font-family: inherit;
 }
 
 .footer-section p {

@@ -1,168 +1,124 @@
-import React from 'react';
-import { FiArrowRight, FiGithub, FiMail } from 'react-icons/fi';
-import {
-  SiC,
-  SiCplusplus,
-  SiPython,
-  SiJavascript,
-  SiLinux,
-  SiArduino,
-  SiRaspberrypi,
-  SiWireshark,
-} from 'react-icons/si';
-import { MdSecurity, MdRouter, MdTerminal } from 'react-icons/md';
-import './Hero.css';
-import DotField from './DotField';
-import TrueFocus from './TrueFocus';
+import React, { useState, useEffect } from 'react';
+import { FiArrowRight, FiGithub, FiTerminal, FiShield, FiCpu } from 'react-icons/fi';
+import { SiC, SiCplusplus, SiPython, SiJavascript, SiLinux, SiArduino } from 'react-icons/si';
 import LogoLoop from './LogoLoop';
-
-const techLogos = [
-  { node: <SiC />,          title: 'C',             href: 'https://en.wikipedia.org/wiki/C_(programming_language)' },
-  { node: <SiCplusplus />,  title: 'C++',           href: 'https://isocpp.org' },
-  { node: <SiPython />,     title: 'Python',        href: 'https://python.org' },
-  { node: <SiJavascript />, title: 'JavaScript',    href: 'https://developer.mozilla.org/en-US/docs/Web/JavaScript' },
-  { node: <SiArduino />,    title: 'Arduino',       href: 'https://arduino.cc' },
-  { node: <SiRaspberrypi />,title: 'Raspberry Pi',  href: 'https://raspberrypi.org' },
-  { node: <SiLinux />,      title: 'Linux / Kali',  href: 'https://kali.org' },
-  { node: <SiWireshark />,  title: 'Wireshark',     href: 'https://wireshark.org' },
-  { node: <MdSecurity />,   title: 'IoT Security',  href: '#skills' },
-  { node: <MdRouter />,     title: 'Network Pentesting', href: '#skills' },
-  { node: <MdTerminal />,   title: 'Shell / Bash',  href: '#skills' },
-];
+import './Hero.css';
 
 function Hero() {
+  const [terminalText, setTerminalText] = useState('');
+  const [cursorVisible, setCursorVisible] = useState(true);
+  const fullText = "./analyze_iot_systems.sh --verbose";
+  
+  const techLogos = React.useMemo(() => [
+    { node: <SiC />, title: 'C' },
+    { node: <SiCplusplus />, title: 'C++' },
+    { node: <SiPython />, title: 'Python' },
+    { node: <SiJavascript />, title: 'JavaScript' },
+    { node: <SiLinux />, title: 'Linux' },
+    { node: <SiArduino />, title: 'Arduino' }
+  ], []);
+
+  useEffect(() => {
+    let i = 0;
+    const typingInterval = setInterval(() => {
+      if (i < fullText.length) {
+        setTerminalText(fullText.substring(0, i + 1));
+        i++;
+      } else {
+        clearInterval(typingInterval);
+      }
+    }, 100);
+
+    const cursorInterval = setInterval(() => {
+      setCursorVisible(prev => !prev);
+    }, 500);
+
+    return () => {
+      clearInterval(typingInterval);
+      clearInterval(cursorInterval);
+    };
+  }, []);
+
   return (
     <section id="home" className="hero">
-      <div className="hero-background">
-        <div className="grid"></div>
-        <div className="noise-overlay"></div>
-        <div className="scanlines"></div>
-        <DotField
-          dotRadius={1.5}
-          dotSpacing={20}
-          bulgeStrength={120}
-          glowRadius={250}
-          sparkle={true}
-          waveAmplitude={0}
-          gradientFrom="rgba(8, 145, 178, 0.6)"
-          gradientTo="rgba(247, 147, 30, 0.4)"
-          glowColor="rgba(8, 145, 178, 0.15)"
-          style={{ position: 'absolute', inset: 0, opacity: 0.5 }}
-        />
-        <div className="glow glow-1"></div>
-        <div className="glow glow-2"></div>
-      </div>
-
       <div className="container hero-container">
         <div className="hero-content">
-          {/* Badge */}
-          <div className="hero-badge">
-            <span className="hero-badge-dot"></span>
-            B.Tech ECE · IoT Security
+          <div className="status-badge">
+            <span className="pulse-dot"></span>
+            <span className="mono">SYSTEM_ONLINE :: SEC_LEVEL_1</span>
           </div>
 
-          {/* TrueFocus animated main title */}
-          <div className="hero-truefocus-wrap">
-            <TrueFocus
-              sentence="Hi I'm Balaram"
-              manualMode={false}
-              blurAmount={4}
-              borderColor="var(--secondary-color)"
-              glowColor="rgba(8, 145, 178, 0.55)"
-              animationDuration={0.6}
-              pauseBetweenAnimations={1.2}
-            />
-          </div>
+          <h1 className="hero-title">
+            <span className="title-glitch" data-text="CYBERSECURITY">CYBERSECURITY</span>
+            <br />
+            <span className="title-accent">& IOT ENG</span>
+          </h1>
 
-          <h2 className="hero-subtitle">Cybersecurity in IoT</h2>
-
-          <p className="hero-description">
-            B.Tech ECE Student specializing in IoT security &amp; embedded systems.
-            I analyze vulnerabilities in connected devices and design secure architectures
-            for IoT systems. Passionate about pentesting, firmware analysis, and wireless security.
+          <p className="hero-description mono">
+            > INITIALIZING...<br/>
+            > SPECIALIZATION: IOT SECURITY & EMBEDDED SYSTEMS.<br/>
+            > FOCUS: WIRELESS PROTOCOLS, HARDWARE PENTESTING.
           </p>
 
-          <div className="hero-buttons">
-            <a href="#projects" className="btn btn-primary">
-              View Projects
-              <FiArrowRight size={18} />
+          <div className="hero-actions">
+            <a href="#projects" className="btn btn-primary mono">
+              <FiTerminal /> DEPLOY_REPORTS
             </a>
-            <a href="#contact" className="btn btn-secondary">
-              Contact Me
-            </a>
-          </div>
-
-          <div className="hero-social">
-            <a
-              href="https://github.com/balaram753"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="social-link"
-              aria-label="GitHub"
-            >
-              <FiGithub size={20} />
-            </a>
-            <a
-              href="mailto:hello@balaram.me"
-              className="social-link"
-              aria-label="Email"
-            >
-              <FiMail size={20} />
+            <a href="https://github.com/balaram753" target="_blank" rel="noopener noreferrer" className="btn btn-secondary mono">
+              <FiGithub /> SOURCE_CODE
             </a>
           </div>
         </div>
 
         <div className="hero-visual">
-          <div className="terminal">
+          <div className="glass-panel terminal-window">
             <div className="terminal-header">
-              <div className="terminal-dot red"></div>
-              <div className="terminal-dot yellow"></div>
-              <div className="terminal-dot green"></div>
+              <div className="window-controls">
+                <span className="control close"></span>
+                <span className="control minimize"></span>
+                <span className="control expand"></span>
+              </div>
+              <div className="terminal-title mono">root@iot-terminal:~</div>
             </div>
-            <div className="terminal-content">
-              <div className="terminal-line">
-                <span className="terminal-prompt">$</span>
-                <span className="terminal-text"> ./analyze_iot.sh</span>
+            <div className="terminal-body mono">
+              <div className="term-line">
+                <span className="prompt">root@iot:~#</span> 
+                <span className="command">{terminalText}</span>
+                <span className={`cursor ${cursorVisible ? 'visible' : 'hidden'}`}>█</span>
               </div>
-              <div className="terminal-line">
-                <span className="terminal-output">Scanning IoT vulnerabilities...</span>
-              </div>
-              <div className="terminal-line">
-                <span className="terminal-output">✓ Firmware Analysis</span>
-              </div>
-              <div className="terminal-line">
-                <span className="terminal-output">✓ Wireless Security</span>
-              </div>
-              <div className="terminal-line">
-                <span className="terminal-output">✓ Embedded Pentesting</span>
-              </div>
-              <div className="terminal-line cursor">
-                <span className="terminal-prompt">$</span>
-              </div>
+              {terminalText.length === fullText.length && (
+                <div className="term-output animate-fade-in">
+                  <div className="log success">[OK] Firmware extracted...</div>
+                  <div className="log success">[OK] Analyzing binary structure...</div>
+                  <div className="log warning">[WARN] Vulnerability detected in offset 0x4B2C</div>
+                  <div className="log info">[INFO] Commencing deeper scan...</div>
+                  <br/>
+                  <div className="log stats">
+                    SYSTEM SPECS:<br/>
+                    - CPU: ESP32 / ARDUINO<br/>
+                    - KERNEL: LINUX<br/>
+                    - EXPERTISE: OFFENSIVE SECURITY
+                  </div>
+                </div>
+              )}
             </div>
+          </div>
+          
+          {/* Abstract floating hardware modules */}
+          <div className="hw-module module-1 glass-panel">
+            <FiShield size={24} className="accent-magenta" />
+            <span className="mono text-xs">SEC_MODULE_A</span>
+          </div>
+          <div className="hw-module module-2 glass-panel">
+            <FiCpu size={24} className="accent-matrix" />
+            <span className="mono text-xs">LOGIC_GATE</span>
           </div>
         </div>
       </div>
 
-      {/* LogoLoop tech ticker */}
-      <div className="hero-logoloop-wrap" aria-label="Technology stack">
-        <p className="hero-logoloop-label">Tech Stack &amp; Tools</p>
-        <LogoLoop
-          logos={techLogos}
-          speed={70}
-          direction="left"
-          logoHeight={34}
-          gap={48}
-          hoverSpeed={0}
-          scaleOnHover
-          fadeOut
-          fadeOutColor="#0d0a12"
-          ariaLabel="Technologies I work with"
-        />
-      </div>
-
-      <div className="scroll-indicator">
-        <div className="scroll-dot"></div>
+      <div className="hero-ticker-wrap">
+        <div className="ticker-label mono">ACTIVE_DEPENDENCIES</div>
+        <LogoLoop logos={techLogos} speed={50} scaleOnHover={true} fadeOut={true} fadeOutColor="#050505" />
       </div>
     </section>
   );

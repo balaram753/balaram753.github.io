@@ -1,92 +1,109 @@
 import React from 'react';
+import { FiDatabase, FiLock, FiCode, FiTool } from 'react-icons/fi';
 import './Skills.css';
 
 function Skills() {
-  // Google Material Icons for skills
-  const skillIcons = {
-    'ESP32': 'memory',
-    'ESP8266': 'router',
-    'Arduino': 'build',
-    'Raspberry Pi': 'computer',
-    'Firmware Analysis': 'security',
-    'RTOS': 'schedule',
-    'Network Security': 'vpn_lock',
-    'WiFi Pentesting': 'signal_cellular_alt',
-    'IoT Pentesting': 'radar',
-    'General Attacks': 'gpp_bad',
-    'C/C++': 'data_object',
-    'Python': 'language',
-    'JavaScript': 'javascript',
-    'Bash/Shell': 'terminal',
-    'Assembly': 'microservices',
-    'Arduino IDE': 'edit_note',
-    'Kali Linux': 'settings_applications',
-    'Wireshark': 'cloud_sync',
-    'NMap': 'lan',
-    'Cisco Packet Tracer': 'schema',
-  };
-
-  const categoryIcons = {
-    'IoT & Embedded Systems': 'hub',
-    'Cybersecurity': 'lock_outline',
-    'Programming Languages': 'code',
-    'Tools & Platforms': 'build_circle',
-  };
-
   const skillCategories = [
     {
-      title: 'IoT & Embedded Systems',
-      skills: ['ESP32', 'ESP8266', 'Arduino', 'Raspberry Pi', 'Firmware Analysis', 'RTOS'],
-    },
-    {
-      title: 'Cybersecurity',
+      id: 'embedded',
+      icon: <FiDatabase />,
+      label: 'SYS_CORE',
+      title: 'Embedded Systems',
+      size: 'large',
       skills: [
-        'Network Security',
-        'WiFi Pentesting',
-        'IoT Pentesting',
-        'General Attacks',
+        { name: 'ESP32 / ESP8266', level: 88 },
+        { name: 'Arduino / RPi', level: 85 },
+        { name: 'Firmware Analysis', level: 50 },
       ],
     },
     {
-      title: 'Programming Languages',
-      skills: ['C/C++', 'Python', 'JavaScript', 'Bash/Shell', 'Assembly', 'Arduino IDE'],
+      id: 'security',
+      icon: <FiLock />,
+      label: 'SEC_OPS',
+      title: 'Security & Pentesting',
+      size: 'large',
+      skills: [
+        { name: 'Network Security', level: 86 },
+        { name: 'WiFi Pentesting', level: 75 },
+        { name: 'IoT Pentesting', level: 50 },
+        { name: 'Vuln Analysis', level: 80 },
+      ],
     },
     {
-      title: 'Tools & Platforms',
+      id: 'programming',
+      icon: <FiCode />,
+      label: 'LANG_ENV',
+      title: 'Languages',
+      size: 'small',
       skills: [
-        'Kali Linux',
-        'Wireshark',
-        'NMap',
-        'Cisco Packet Tracer',
+        { name: 'C/C++', level: 50 },
+        { name: 'Python', level: 75 },
+        { name: 'Bash', level: 50 },
+        { name: 'Assembly', level: 25 },
+      ],
+    },
+    {
+      id: 'tools',
+      icon: <FiTool />,
+      label: 'TOOLCHAIN',
+      title: 'Tools & Platforms',
+      size: 'small',
+      skills: [
+        { name: 'Kali Linux', level: 88 },
+        { name: 'Wireshark', level: 86 },
+        { name: 'NMap / Burp', level: 50 },
       ],
     },
   ];
 
   return (
-    <section id="skills" className="skills">
+    <section id="skills" className="skills-section">
       <div className="container">
         <div className="section-header">
-          <h2>Skills & Expertise</h2>
-          <p className="section-subtitle">Technologies and domains I work with</p>
+          <h2>TECHNICAL_SKILLS</h2>
+          <div className="section-subtitle">> IOT_COMPETENCIES_LOADED</div>
         </div>
 
-        <div className="skills-grid">
-          {skillCategories.map((category, index) => (
-            <div key={index} className="skill-card">
-              <div className="category-header">
-                <span className="material-icons category-icon">{categoryIcons[category.title]}</span>
-                <h3>{category.title}</h3>
+        <div className="bento-grid skills-bento">
+          {skillCategories.map((category) => (
+            <div
+              key={category.id}
+              className={`glass-panel bento-item ${category.size === 'large' ? 'col-span-8' : 'col-span-4'}`}
+            >
+              <div className="bento-header">
+                <div className="bento-icon">{category.icon}</div>
+                <div className="bento-label mono">{category.label}</div>
               </div>
-              <div className="skill-tags">
-                {category.skills.map((skill, i) => (
-                  <span key={i} className="skill-tag">
-                    <span className="material-icons skill-icon">{skillIcons[skill]}</span>
-                    {skill}
-                  </span>
+
+              <h3 className="bento-title">{category.title}</h3>
+
+              <div className="bento-content">
+                {category.skills.map((skill, idx) => (
+                  <div key={idx} className="skill-meter-wrap">
+                    <div className="skill-meter-header mono">
+                      <span>{skill.name}</span>
+                      <span className="accent-cyan">{skill.level}%</span>
+                    </div>
+                    <div className="skill-meter-track">
+                      <div
+                        className="skill-meter-fill"
+                        style={{ width: `${skill.level}%` }}
+                      ></div>
+                    </div>
+                  </div>
                 ))}
               </div>
             </div>
           ))}
+
+          {/* Decorative Terminal Block in Grid */}
+          <div className="glass-panel bento-item col-span-12 decorative-terminal">
+            <div className="mono text-sm text-dimmed">
+              > STATUS: OPERATIONAL<br />
+              > MODULES: 4<br />
+              > ALL SYSTEMS OPTIMAL.
+            </div>
+          </div>
         </div>
       </div>
     </section>

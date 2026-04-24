@@ -32,10 +32,10 @@ function Experience() {
   ];
 
   return (
-    <section id="experience" className="experience">
+    <section id="experience" className="experience" aria-label="Experience Section">
       <div className="container">
         <div className="section-header">
-          <h2>Experience & Learning</h2>
+          <h2 className="experience-title" style={{fontFamily: 'monospace', color: 'var(--primary-color)', fontWeight: 800, fontSize: '2rem', letterSpacing: '0.01em'}}>[experience]</h2>
           <p className="section-subtitle">Journey through security and IoT</p>
         </div>
 
@@ -47,15 +47,13 @@ function Experience() {
             stackPosition="5%"
             scaleEndPosition="5%"
             baseScale={0.9}
-            blurAmount={3}
+            blurAmount={0}
           >
             {experiences.map((exp, index) => (
-              <ScrollStackItem key={index} itemClassName="experience-card glowing-border">
+              <ScrollStackItem key={index} itemClassName="experience-card glowing-border" tabIndex={0} aria-label={exp.title}>
                 <div className="experience-header">
-                  <h3>{exp.title}</h3>
-                  <span className={`status-badge ${exp.status}`}>
-                    {exp.status === 'ongoing' ? 'Ongoing' : 'Completed'}
-                  </span>
+                  <h3 style={{color: 'var(--secondary-color)', fontWeight: 700, fontSize: '1.15rem', margin: 0}}>{exp.title}</h3>
+                  <span className={`status-badge ${exp.status}`}>{exp.status === 'ongoing' ? 'Ongoing' : 'Completed'}</span>
                 </div>
 
                 <p className="experience-description">{exp.description}</p>
@@ -63,7 +61,7 @@ function Experience() {
                 <div className="experience-highlights">
                   {exp.highlights.map((highlight, i) => (
                     <div key={i} className="highlight-item">
-                      <FiCheckCircle size={18} />
+                      <FiCheckCircle size={18} aria-hidden="true" />
                       <span>{highlight}</span>
                     </div>
                   ))}

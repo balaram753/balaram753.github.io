@@ -14,13 +14,15 @@ const ReflectiveCard = ({
   grayscale = 1,
   glassDistortion = 0,
   image = null,
+  useWebcam = false,
   className = '',
-  style = {}
+  style = {},
+  children
 }) => {
   const videoRef = useRef(null);
 
   useEffect(() => {
-    if (image) return; // Don't start webcam if using a static image
+    if (image || !useWebcam) return; 
 
     let stream = null;
 
@@ -49,7 +51,7 @@ const ReflectiveCard = ({
         stream.getTracks().forEach(track => track.stop());
       }
     };
-  }, [image]);
+  }, [image, useWebcam]);
 
   const baseFrequency = 0.03 / Math.max(0.1, noiseScale);
   const saturation = 1 - Math.max(0, Math.min(1, grayscale));
@@ -115,8 +117,10 @@ const ReflectiveCard = ({
 
       {image ? (
         <img src={image} alt="Profile Reflection" className="reflective-video" style={{ transform: 'scale(1)' }} />
-      ) : (
+      ) : useWebcam ? (
         <video ref={videoRef} autoPlay playsInline muted className="reflective-video" />
+      ) : (
+        <div className="reflective-video-placeholder" />
       )}
 
       <div className="reflective-noise" />
@@ -124,30 +128,34 @@ const ReflectiveCard = ({
       <div className="reflective-border" />
 
       <div className="reflective-content">
-        <div className="card-header">
-          <div className="security-badge">
-            <Lock size={14} className="security-icon" />
-            <span>SECURE ACCESS</span>
-          </div>
-          <Activity className="status-icon" size={20} />
-        </div>
+        {children || (
+          <>
+            <div className="card-header">
+              <div className="security-badge">
+                <Lock size={14} className="security-icon" />
+                <span>SECURE ACCESS</span>
+              </div>
+              <Activity className="status-icon" size={20} />
+            </div>
 
-        <div className="card-body">
-          <div className="user-info">
-            <h2 className="user-name">BALARAM CH</h2>
-            <p className="user-role">SECURITY RESEARCHER</p>
-          </div>
-        </div>
+            <div className="card-body">
+              <div className="user-info">
+                <h2 className="user-name">BALARAM CH</h2>
+                <p className="user-role">SECURITY RESEARCHER</p>
+              </div>
+            </div>
 
-        <div className="card-footer">
-          <div className="id-section">
-            <span className="label">CLEARANCE ID</span>
-            <span className="value">1337-IOT-SEC</span>
-          </div>
-          <div className="fingerprint-section">
-            <Fingerprint size={32} className="fingerprint-icon" />
-          </div>
-        </div>
+            <div className="card-footer">
+              <div className="id-section">
+                <span className="label">CLEARANCE ID</span>
+                <span className="value">1337-IOT-SEC</span>
+              </div>
+              <div className="fingerprint-section">
+                <Fingerprint size={32} className="fingerprint-icon" />
+              </div>
+            </div>
+          </>
+        )}
       </div>
     </div>
   );

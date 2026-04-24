@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useMemo, useRef, useState, memo } from 'react';
+import React, { useCallback, useEffect, useMemo, useRef, useState, memo } from 'react';
 import './LogoLoop.css';
 
 const ANIMATION_CONFIG = { SMOOTH_TAU: 0.25, MIN_COPIES: 2, COPY_HEADROOM: 2 };
@@ -117,7 +117,7 @@ const useAnimationLoop = (trackRef, targetVelocity, seqWidth, seqHeight, isHover
 
 export const LogoLoop = memo(
   ({
-    logos,
+    logos = [],
     speed = 120,
     direction = 'left',
     width = '100%',
@@ -166,31 +166,36 @@ export const LogoLoop = memo(
     const updateDimensions = useCallback(() => {
       const containerWidth = containerRef.current?.clientWidth ?? 0;
       const sequenceRect = seqRef.current?.getBoundingClientRect?.();
-      const sequenceWidth = sequenceRect?.width ?? 0;
-      const sequenceHeight = sequenceRect?.height ?? 0;
+      const sequenceWidth = Math.ceil(sequenceRect?.width ?? 0);
+      const sequenceHeight = Math.ceil(sequenceRect?.height ?? 0);
+
       if (isVertical) {
         const parentHeight = containerRef.current?.parentElement?.clientHeight ?? 0;
         if (containerRef.current && parentHeight > 0) {
           const targetHeight = Math.ceil(parentHeight);
-          if (containerRef.current.style.height !== `${targetHeight}px`)
+          if (containerRef.current.style.height !== `${targetHeight}px`) {
             containerRef.current.style.height = `${targetHeight}px`;
+          }
         }
         if (sequenceHeight > 0) {
-          setSeqHeight(Math.ceil(sequenceHeight));
+          setSeqHeight(prev => (prev !== sequenceHeight ? sequenceHeight : prev));
           const viewport = containerRef.current?.clientHeight ?? parentHeight ?? sequenceHeight;
           const copiesNeeded = Math.ceil(viewport / sequenceHeight) + ANIMATION_CONFIG.COPY_HEADROOM;
-          setCopyCount(Math.max(ANIMATION_CONFIG.MIN_COPIES, copiesNeeded));
+          setCopyCount(prev => Math.max(ANIMATION_CONFIG.MIN_COPIES, Math.max(prev, copiesNeeded)));
         }
       } else if (sequenceWidth > 0) {
-        setSeqWidth(Math.ceil(sequenceWidth));
+        setSeqWidth(prev => (prev !== sequenceWidth ? sequenceWidth : prev));
         const copiesNeeded = Math.ceil(containerWidth / sequenceWidth) + ANIMATION_CONFIG.COPY_HEADROOM;
-        setCopyCount(Math.max(ANIMATION_CONFIG.MIN_COPIES, copiesNeeded));
+        setCopyCount(prev => Math.max(ANIMATION_CONFIG.MIN_COPIES, Math.max(prev, copiesNeeded)));
       }
     }, [isVertical]);
 
-    useResizeObserver(updateDimensions, [containerRef, seqRef], [logos, gap, logoHeight, isVertical]);
+    const observerRefs = useMemo(() => [containerRef, seqRef], []);
+    const hookDeps = useMemo(() => [logos, gap, logoHeight, isVertical], [logos, gap, logoHeight, isVertical]);
 
-    useImageLoader(seqRef, updateDimensions, [logos, gap, logoHeight, isVertical]);
+    useResizeObserver(updateDimensions, observerRefs, hookDeps);
+
+    useImageLoader(seqRef, updateDimensions, hookDeps);
 
     useAnimationLoop(trackRef, targetVelocity, seqWidth, seqHeight, isHovered, effectiveHoverSpeed, isVertical);
 
@@ -235,7 +240,7 @@ export const LogoLoop = memo(
         }
         const isNodeItem = 'node' in item;
         const content = isNodeItem ? (
-          <span className="logoloop__node" aria-hidden={!!item.href && !item.ariaLabel}>
+          <span className="logoloop__node">
             {item.node}
           </span>
         ) : (
@@ -285,7 +290,7 @@ export const LogoLoop = memo(
             aria-hidden={copyIndex > 0}
             ref={copyIndex === 0 ? seqRef : undefined}
           >
-            {logos.map((item, itemIndex) => renderLogoItem(item, `${copyIndex}-${itemIndex}`))}
+            {Array.isArray(logos) && logos.map((item, itemIndex) => renderLogoItem(item, `${copyIndex}-${itemIndex}`))}
           </ul>
         )),
       [copyCount, logos, renderLogoItem]

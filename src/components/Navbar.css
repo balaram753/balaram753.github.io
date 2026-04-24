@@ -1,135 +1,124 @@
-.navbar {
-  position: sticky;
-  top: 0;
-  width: 100%;
-  background-color: rgba(10, 15, 31, 0.7);
-  backdrop-filter: blur(10px);
+.dock-nav {
+  position: fixed;
+  bottom: 2rem;
+  left: 50%;
+  transform: translateX(-50%);
   z-index: 1000;
-  border-bottom: 1px solid transparent;
-  transition: border-color var(--transition-normal),
-    background-color var(--transition-normal);
+  transition: all var(--transition-spring);
 }
 
-.navbar.scrolled {
-  background-color: rgba(10, 15, 31, 0.95);
-  border-bottom-color: var(--border-color);
+.dock-nav.scrolled {
+  bottom: 1rem;
 }
 
-.nav-container {
+.dock-container {
   display: flex;
-  justify-content: space-between;
   align-items: center;
-  padding: 1rem 20px;
-}
-
-.logo {
-  font-size: 1.5rem;
-  font-weight: 800;
-  background: linear-gradient(135deg, var(--primary-light), var(--secondary-color));
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-  transition: transform var(--transition-fast);
-}
-
-.logo:hover {
-  transform: scale(1.05);
-}
-
-.nav-links {
-  display: flex;
-  list-style: none;
   gap: 2rem;
-  margin: 0;
-  padding: 0;
+  padding: 0.75rem 1.5rem;
+  border-radius: var(--radius-full);
 }
 
-.nav-links li a {
-  color: var(--text-muted);
-  font-weight: 500;
-  font-size: 0.95rem;
-  transition: color var(--transition-fast);
+.dock-logo {
+  font-size: 1.1rem;
+  font-weight: 800;
+  color: var(--text-primary);
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  user-select: none;
+}
+
+.dock-logo .accent {
+  color: var(--accent-cyan);
+  text-shadow: var(--glow-cyan);
+}
+
+.dock-links {
+  display: flex;
+  gap: 0.5rem;
+  list-style: none;
+}
+
+.dock-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.25rem;
+  padding: 0.5rem 1rem;
+  border-radius: var(--radius-full);
+  color: var(--text-secondary);
+  transition: all var(--transition-fast);
   position: relative;
 }
 
-.nav-links li a::after {
+.dock-icon {
+  font-size: 1.25rem;
+  transition: transform var(--transition-spring);
+}
+
+.dock-label {
+  font-size: 0.65rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  opacity: 0.7;
+}
+
+.dock-item:hover {
+  color: var(--text-primary);
+  background: rgba(255, 255, 255, 0.05);
+}
+
+.dock-item:hover .dock-icon {
+  transform: translateY(-2px) scale(1.1);
+  color: var(--accent-cyan);
+  filter: drop-shadow(var(--glow-cyan));
+}
+
+.dock-item.active {
+  color: var(--accent-cyan);
+  background: rgba(0, 229, 255, 0.1);
+}
+
+.dock-item.active .dock-icon {
+  color: var(--accent-cyan);
+  filter: drop-shadow(var(--glow-cyan));
+}
+
+.dock-item.active::after {
   content: '';
   position: absolute;
   bottom: -4px;
-  left: 0;
-  width: 0;
-  height: 2px;
-  background: linear-gradient(90deg, var(--secondary-color), var(--primary-light));
-  transition: width var(--transition-fast);
+  left: 50%;
+  transform: translateX(-50%);
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background: var(--accent-cyan);
+  box-shadow: var(--glow-cyan);
 }
 
-.nav-links li a:hover {
-  color: var(--text-light);
-}
-
-.nav-links li a:hover::after {
-  width: 100%;
-}
-
-.nav-toggle {
-  display: none;
-  background: none;
-  border: none;
-  color: var(--text-light);
-  cursor: pointer;
-  padding: 0.5rem;
-  transition: color var(--transition-fast);
-}
-
-.nav-toggle:hover {
-  color: var(--primary-light);
-}
-
-/* ===========================
-   Mobile Menu
-   =========================== */
 @media (max-width: 768px) {
-  .nav-toggle {
-    display: block;
+  .dock-container {
+    gap: 1rem;
+    padding: 0.5rem 1rem;
   }
-
-  .nav-links {
-    position: fixed;
-    top: 60px;
-    left: 0;
-    right: 0;
-    background-color: var(--bg-darker);
-    flex-direction: column;
-    gap: 0.5rem;
-    padding: 1.5rem;
-    max-width: 100%;
-    border-bottom: 1px solid var(--border-color);
-    opacity: 0;
-    visibility: hidden;
-    transform: translateY(-10px);
-    transition: opacity var(--transition-normal),
-      visibility var(--transition-normal),
-      transform var(--transition-normal);
-  }
-
-  .nav-links.active {
-    opacity: 1;
-    visibility: visible;
-    transform: translateY(0);
-  }
-
-  .nav-links li a {
-    color: var(--text-muted);
-    padding: 0.75rem 0;
-  }
-
-  .nav-links li a::after {
+  
+  .dock-logo {
     display: none;
   }
-
-  .nav-links li a:hover {
-    color: var(--secondary-color);
-    padding-left: 0.5rem;
-    transition: padding-left var(--transition-fast);
+  
+  .dock-item {
+    padding: 0.5rem;
+  }
+  
+  .dock-label {
+    display: none;
+  }
+  
+  .dock-icon {
+    font-size: 1.5rem;
   }
 }
