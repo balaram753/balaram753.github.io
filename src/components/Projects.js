@@ -1,11 +1,20 @@
 import React from 'react';
-import { FiGithub, FiExternalLink, FiFileText, FiActivity } from 'react-icons/fi';
+import { FiGithub, FiFileText, FiActivity } from 'react-icons/fi';
 import './Projects.css';
 
 function Projects() {
   const projects = [
     {
       id: 'OP-01',
+      title: 'CTF Write-ups',
+      type: 'DOCUMENTATION',
+      description: 'Collection of detailed write-ups from IoT and embedded systems CTF challenges.',
+      tags: ['CTF', 'Security'],
+      status: 'Completed',
+      github: 'https://balaram.me/CTF-WriteUps/',
+    },
+    {
+      id: 'OP-02',
       title: 'IoT Intrusion Detection',
       type: 'IDS_SYSTEM',
       description: 'ESP32 based IDS for IoT networks. Monitors traffic, detects anomalies, alerts on suspicious ML patterns.',
@@ -49,15 +58,6 @@ function Projects() {
       status: 'ACTIVE',
       github: 'https://github.com/balaram753',
     },
-    {
-      id: 'OP-06',
-      title: 'CTF Write-ups',
-      type: 'DOCUMENTATION',
-      description: 'Collection of detailed write-ups from IoT and embedded systems CTF challenges.',
-      tags: ['CTF', 'Security'],
-      status: 'ARCHIVED',
-      github: 'https://github.com/balaram753',
-    },
   ];
 
   return (
@@ -65,7 +65,7 @@ function Projects() {
       <div className="container">
         <div className="section-header">
           <h2>FIELD_REPORTS</h2>
-          <div className="section-subtitle">> ACCESSING_PROJECT_DATABASE...</div>
+          <div className="section-subtitle">&gt; ACCESSING_PROJECT_DATABASE...</div>
         </div>
 
         <div className="projects-grid">

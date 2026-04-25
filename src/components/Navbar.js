@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { FiMenu, FiX, FiTerminal, FiCpu, FiLayout, FiMail } from 'react-icons/fi';
+import { FiTerminal, FiCpu, FiLayout, FiMail, FiFileText } from 'react-icons/fi';
 import './Navbar.css';
 
 function Navbar() {
@@ -35,6 +35,7 @@ function Navbar() {
     { id: 'home', icon: <FiTerminal />, label: 'SYS_INIT' },
     { id: 'skills', icon: <FiCpu />, label: 'LOGIC' },
     { id: 'projects', icon: <FiLayout />, label: 'REPORTS' },
+    { id: 'writeups', icon: <FiFileText />, label: 'WRITEUPS', href: 'https://balaram.me/CTF-WriteUps/' },
     { id: 'contact', icon: <FiMail />, label: 'COMMS' },
   ];
 
@@ -49,7 +50,9 @@ function Navbar() {
           {navItems.map((item) => (
             <li key={item.id}>
               <a 
-                href={`#${item.id}`}
+                href={item.href || `#${item.id}`}
+                target={item.href ? '_blank' : undefined}
+                rel={item.href ? 'noopener noreferrer' : undefined}
                 className={`dock-item ${activeSection === item.id ? 'active' : ''}`}
                 title={item.label}
               >
