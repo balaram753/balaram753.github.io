@@ -11,7 +11,7 @@ function Projects() {
       description: 'Collection of detailed write-ups from IoT and embedded systems CTF challenges.',
       tags: ['CTF', 'Security'],
       status: 'Completed',
-      github: 'https://balaram.me/CTF-WriteUps/',
+      github: 'https://github.com/balaram753/CTF-WriteUps',
     },
     {
       id: 'OP-02',
