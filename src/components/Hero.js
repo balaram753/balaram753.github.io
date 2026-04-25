@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { FiArrowRight, FiGithub, FiTerminal, FiShield, FiCpu } from 'react-icons/fi';
+import { FiGithub, FiTerminal, FiShield, FiCpu } from 'react-icons/fi';
 import { SiC, SiCplusplus, SiPython, SiJavascript, SiLinux, SiArduino } from 'react-icons/si';
 import LogoLoop from './LogoLoop';
 import './Hero.css';
@@ -55,9 +55,9 @@ function Hero() {
           </h1>
 
           <p className="hero-description mono">
-            > INITIALIZING...<br/>
-            > SPECIALIZATION: IOT SECURITY & EMBEDDED SYSTEMS.<br/>
-            > FOCUS: WIRELESS PROTOCOLS, HARDWARE PENTESTING.
+            &gt; INITIALIZING...<br/>
+            &gt; SPECIALIZATION: IOT SECURITY & EMBEDDED SYSTEMS.<br/>
+            &gt; FOCUS: WIRELESS PROTOCOLS, HARDWARE PENTESTING.
           </p>
 
           <div className="hero-actions">
